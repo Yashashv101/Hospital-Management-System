@@ -19,6 +19,10 @@ target/
 *.iml
 *.ipr
 
+# Application configuration (do NOT commit real values)
+application.properties
+application-*.properties
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
