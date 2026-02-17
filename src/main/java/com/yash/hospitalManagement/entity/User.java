@@ -1,5 +1,7 @@
 package com.yash.hospitalManagement.entity;
 
+import com.yash.hospitalManagement.entity.type.AuthProviderType;
+import com.yash.hospitalManagement.entity.type.RoleType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +11,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="users")
@@ -24,7 +28,13 @@ public class User implements UserDetails {
     @Column(unique=true)
     private String username;
     private String password;
+    private String providerId;
+    @Enumerated(EnumType.STRING)
+    private AuthProviderType providerType;
 
+    @ElementCollection(fetch=FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    Set<RoleType> roles=new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
